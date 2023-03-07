@@ -32,9 +32,16 @@ func main() {
 	router := gin.New()
 
 	bootstrap.SetupDB()
+
+	// 初始化 redis
+	bootstrap.SetupRedis()
+
 	// 初始化路由绑定
 	bootstrap.SetupRoute(router)
 
+	// redis.Redis.Set("key", "ABCD", time.Minute*1)
+
+	// logger.DebugString("redis_test", "key", redis.Redis.Get("key"))
 	// 运行服务
 	err := router.Run(":8010")
 	if err != nil {
