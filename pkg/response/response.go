@@ -31,6 +31,20 @@ func Data(c *gin.Context, data interface{}) {
 	})
 }
 
+// Created 响应 201 和带 data 键的JSON 数据
+// 执行『更新操作』成功后调用，例如更新话题，成功后返回已更新的话题
+func Created(c *gin.Context, data interface{}) {
+	c.JSON(http.StatusCreated, gin.H{
+		"success": true,
+		"data":    data,
+	})
+}
+
+// CreatedJSON 响应 201 和 JSON 数据
+func CreatedJSON(c *gin.Context, data interface{}) {
+	c.JSON(http.StatusCreated, data)
+}
+
 // Abort404 响应 404，未传参 msg 时使用默认消息
 func Abort404(c *gin.Context, msg ...string) {
 	c.AbortWithStatusJSON(http.StatusNotFound, gin.H{

@@ -32,6 +32,7 @@ func Validate(c *gin.Context, obj interface{}, handle ValidatorFunc) bool {
 		// })
 		// return false
 		response.ValidationError(c, errs)
+		return false
 	}
 
 	return true
