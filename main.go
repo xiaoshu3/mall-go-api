@@ -39,7 +39,7 @@ func main() {
 	// 初始化路由绑定
 	bootstrap.SetupRoute(router)
 
-	// redis.Redis.Set("key", "ABCD", time.Minute*1)
+	// redis.Redis.Set("key", "ABCD", time.Minute*10)
 
 	// logger.DebugString("redis_test", "key", redis.Redis.Get("key"))
 	// 运行服务

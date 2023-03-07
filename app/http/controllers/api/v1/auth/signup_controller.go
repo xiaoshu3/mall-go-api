@@ -4,7 +4,7 @@ import (
 	v1 "mall/app/http/controllers/api/v1"
 	"mall/app/models/user"
 	"mall/app/requests"
-	"net/http"
+	"mall/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -48,7 +48,11 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 	}
 
 	//  检查数据库并返回响应
-	c.JSON(http.StatusOK, gin.H{
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"exist": user.IsPhoneExist(request.Phone),
+	// })
+
+	response.JSON(c, gin.H{
 		"exist": user.IsPhoneExist(request.Phone),
 	})
 }
