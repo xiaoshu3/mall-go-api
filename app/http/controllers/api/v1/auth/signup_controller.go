@@ -4,6 +4,7 @@ import (
 	v1 "mall/app/http/controllers/api/v1"
 	"mall/app/models/user"
 	"mall/app/requests"
+	"mall/pkg/jwt"
 	"mall/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -65,15 +66,20 @@ func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 
 	// logger.Du
 	// 2. 验证成功，创建数据
-	_user := user.User{
+	userModel := user.User{
 		Name:     request.Name,
 		Phone:    request.Phone,
 		Password: request.Password,
 	}
-	_user.Create()
+	userModel.Create()
 
-	if _user.ID > 0 {
-		response.Created(c, _user)
+	if userModel.ID > 0 {
+		// response.Created(c, userModel)
+		token := jwt.NewJWT().IssueToken(userModel.GetStringID(), userModel.Name)
+		response.CreatedJSON(c, gin.H{
+			"token": token,
+			"data":  userModel,
+		})
 	} else {
 		response.Abort500(c, "创建用户失败，请稍后尝试~")
 	}

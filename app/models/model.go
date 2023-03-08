@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/spf13/cast"
+)
 
 // BaseModel 模型基类
 type BaseModel struct {
@@ -13,3 +17,6 @@ type CommonTimestampsField struct {
 	UpdatedAt time.Time `gorm:"column:update_at;index" json:"update_at,omitempty"`
 }
 
+func (a BaseModel) GetStringID() string {
+	return cast.ToString(a.ID)
+}
