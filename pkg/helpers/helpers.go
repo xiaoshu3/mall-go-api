@@ -37,3 +37,11 @@ func Empty(val interface{}) bool {
 func MicrosecondStr(elapsed time.Duration) string {
 	return fmt.Sprintf("%.3fms", float64(elapsed.Nanoseconds())/1e6)
 }
+
+func PhoneToName(phone string) string {
+	b := []byte(phone)
+	for i := 2; i < 8; i++ {
+		b[i] = '*'
+	}
+	return string(b)
+}

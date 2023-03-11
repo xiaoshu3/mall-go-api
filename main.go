@@ -44,6 +44,11 @@ func main() {
 	// logger.DebugString("redis_test", "key", redis.Redis.Get("key"))
 	// 运行服务
 
+	// router.GET("/test_auth", middlewares.AuthJWT(), func(c *gin.Context) {
+	// 	userModel := auth.CurrentUser(c)
+	// 	response.Data(c, userModel)
+	// })
+
 	err := router.Run(":8010")
 	if err != nil {
 		// 错误处理，端口被占用了或者其他错误

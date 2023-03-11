@@ -4,6 +4,7 @@ import (
 	v1 "mall/app/http/controllers/api/v1"
 	"mall/app/models/user"
 	"mall/app/requests"
+	"mall/pkg/helpers"
 	"mall/pkg/jwt"
 	"mall/pkg/response"
 
@@ -67,7 +68,8 @@ func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 	// logger.Du
 	// 2. 验证成功，创建数据
 	userModel := user.User{
-		Name:     request.Name,
+		// Name:     request.Name,
+		Name:     helpers.PhoneToName(request.Phone),
 		Phone:    request.Phone,
 		Password: request.Password,
 	}
