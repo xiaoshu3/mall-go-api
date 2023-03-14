@@ -2,6 +2,7 @@ package routes
 
 import (
 	"mall/app/http/controllers/api/v1/auth"
+	"mall/app/http/controllers/api/v1/home"
 	"mall/app/http/controllers/api/v1/middlewares"
 
 	"github.com/gin-gonic/gin"
@@ -33,5 +34,12 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			authGroup.POST("/login/using-password", middlewares.GuestJWT(), lgc.LoginByPassword)
 			authGroup.POST("/login/refresh-token", middlewares.GuestJWT(), lgc.RefreshToken)
 		}
+	}
+
+	{
+		hc := new(home.HomeController)
+		homeGroup := v1.Group("/home")
+		homeGroup.GET("/carousels", hc.GetCarousels)
+		homeGroup.GET("/grids", hc.GetGrids)
 	}
 }

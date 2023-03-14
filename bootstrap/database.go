@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"errors"
 	"fmt"
+	"mall/app/models/home"
 	"mall/app/models/user"
 	"mall/pkg/config"
 	"mall/pkg/database"
@@ -53,4 +54,6 @@ func SetupDB() {
 	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
 
 	database.DB.AutoMigrate(&user.User{})
+
+	database.DB.AutoMigrate(&home.HomeCarousel{})
 }
