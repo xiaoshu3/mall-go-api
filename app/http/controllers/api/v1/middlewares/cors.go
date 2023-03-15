@@ -43,10 +43,14 @@ func Cors() gin.HandlerFunc {
 		method := context.Request.Method
 		origin := context.Request.Header.Get("Origin") //请求头部
 		context.Header("Access-Control-Allow-Origin", origin)
+		// context.Header("Access-Control-Allow-Origin", "http://localhost:4000")
 		context.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Requested-With")
 		context.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 		context.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
 		context.Header("Access-Control-Allow-Credentials", "true")
+
+		// 设置返回格式是json
+		context.Set("content-type", "application/json")
 		if method == "OPTIONS" {
 			context.AbortWithStatus(http.StatusNoContent)
 		}

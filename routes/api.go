@@ -2,6 +2,7 @@ package routes
 
 import (
 	"mall/app/http/controllers/api/v1/auth"
+	"mall/app/http/controllers/api/v1/category"
 	"mall/app/http/controllers/api/v1/home"
 	"mall/app/http/controllers/api/v1/middlewares"
 
@@ -36,10 +37,19 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		}
 	}
 
+	// 首页
 	{
 		hc := new(home.HomeController)
 		homeGroup := v1.Group("/home")
 		homeGroup.GET("/carousels", hc.GetCarousels)
 		homeGroup.GET("/grids", hc.GetGrids)
+	}
+
+	// 分类页
+	{
+		cc := new(category.CategoryController)
+		// categoryGroup := v1.Group("/categorys")
+		// categoryGroup.GET("/spec", cc.GetALlCategorys)
+		v1.GET("/category", cc.GetALlCategorys)
 	}
 }

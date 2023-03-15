@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"mall/app/models/home"
+	"mall/app/models/specgroup"
 	"mall/app/models/user"
 	"mall/pkg/config"
 	"mall/pkg/database"
@@ -56,4 +57,6 @@ func SetupDB() {
 	database.DB.AutoMigrate(&user.User{})
 
 	database.DB.AutoMigrate(&home.HomeCarousel{})
+
+	database.DB.AutoMigrate(&specgroup.SpecGroup{}, &specgroup.Brand{}, &specgroup.SpecCategory{})
 }
