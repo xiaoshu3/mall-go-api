@@ -2,6 +2,8 @@ package user
 
 import (
 	"mall/app/models"
+	"mall/app/models/address"
+	"mall/app/models/cart"
 	"mall/pkg/database"
 	"mall/pkg/hash"
 )
@@ -12,6 +14,9 @@ type User struct {
 	Name     string `json:"name,omitempty"`
 	Phone    string `json:"-"`
 	Password string `json:"-"`
+
+	Carts   []*cart.Cart       `json:"carts"`
+	Address []*address.Address `json:"address"`
 
 	models.CommonTimestampsField
 }

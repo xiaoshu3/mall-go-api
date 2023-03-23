@@ -2,6 +2,7 @@ package specgroup
 
 import (
 	"mall/app/models"
+	"mall/app/models/spu"
 	"mall/pkg/database"
 )
 
@@ -14,6 +15,7 @@ type SpecGroup struct {
 	Sort      uint            `json:"sort" gorm:"not null;comment:排名指数"`
 	Brands    []*Brand        `json:"brands" gorm:"many2many:spec_brand_relation"`
 	Categorys []*SpecCategory `json:"categorys"`
+	Spus      []*spu.SPU      `json:"spus"`
 }
 
 // 品牌表
@@ -23,6 +25,7 @@ type Brand struct {
 	Image       string `json:"image,omitempty" gorm:"size:500;comment:图片地址"`
 	RedirectUrl string `json:"redirectUrl" gorm:"size:200"`
 	// Letter byte   `json:"letter,omitempty" gorm:"not null;comment:品牌首字母"`
+	Spus []*spu.SPU `json:"spus"`
 }
 
 // 品类下细分

@@ -3,8 +3,13 @@ package bootstrap
 import (
 	"errors"
 	"fmt"
+	"mall/app/models/address"
+	"mall/app/models/cart"
 	"mall/app/models/home"
+	"mall/app/models/order"
+	"mall/app/models/sku"
 	"mall/app/models/specgroup"
+	"mall/app/models/spu"
 	"mall/app/models/user"
 	"mall/pkg/config"
 	"mall/pkg/database"
@@ -59,4 +64,6 @@ func SetupDB() {
 	database.DB.AutoMigrate(&home.HomeCarousel{})
 
 	database.DB.AutoMigrate(&specgroup.SpecGroup{}, &specgroup.Brand{}, &specgroup.SpecCategory{})
+	database.DB.AutoMigrate(&spu.SPU{}, &sku.SKU{}, &cart.Cart{}, &address.Address{})
+	database.DB.AutoMigrate(&order.Order{}, &order.OrderDetail{}, &order.OrderAddress{})
 }
