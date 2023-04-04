@@ -4,6 +4,7 @@ import (
 	"mall/app/models"
 	"mall/app/models/address"
 	"mall/app/models/cart"
+	"mall/app/models/order"
 	"mall/pkg/database"
 	"mall/pkg/hash"
 )
@@ -17,6 +18,7 @@ type User struct {
 
 	Carts   []*cart.Cart       `json:"carts"`
 	Address []*address.Address `json:"address"`
+	Orders  []*order.Order     `json:"orders"`
 
 	models.CommonTimestampsField
 }

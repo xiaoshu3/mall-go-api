@@ -5,6 +5,7 @@ import (
 	"mall/app/http/controllers/api/v1/category"
 	"mall/app/http/controllers/api/v1/home"
 	"mall/app/http/controllers/api/v1/middlewares"
+	"mall/app/http/controllers/api/v1/spu"
 
 	"github.com/gin-gonic/gin"
 )
@@ -51,5 +52,11 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		// categoryGroup := v1.Group("/categorys")
 		// categoryGroup.GET("/spec", cc.GetALlCategorys)
 		v1.GET("/category", cc.GetALlCategorys)
+	}
+
+	// 商品接口
+	{
+		sc := new(spu.SpuController)
+		v1.GET("/products/:id", sc.GetSpuById)
 	}
 }
