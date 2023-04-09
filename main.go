@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"mall/app/cmd"
+	"mall/app/cmd/make"
 	"mall/bootstrap"
 	"mall/pkg/config"
 	"mall/pkg/console"
@@ -85,6 +86,8 @@ func main() {
 		cmd.CmdServe,
 		cmd.CmdKey,
 		cmd.CmdPlay,
+
+		make.CmdMake,
 	)
 
 	// 配置默认运行 Web 服务
