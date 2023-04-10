@@ -12,9 +12,9 @@ type SpecGroup struct {
 
 	SpgID     uint64          `json:"spgId,omitempty" gorm:"uniqueIndex"`
 	Name      string          `json:"name,omitempty" gorm:"uniqueIndex;size:256"`
-	Sort      uint            `json:"sort" gorm:"not null;comment:排名指数"`
-	Brands    []*Brand        `json:"brands" gorm:"many2many:spec_brand_relation"`
-	Categorys []*SpecCategory `json:"categorys"`
+	Sort      uint            `json:"sort,omitempty" gorm:"not null;comment:排名指数"`
+	Brands    []*Brand        `json:"brands,omitempty" gorm:"many2many:spec_brand_relation"`
+	Categorys []*SpecCategory `json:"categorys,omitempty"`
 }
 
 // 品牌表
@@ -22,7 +22,7 @@ type Brand struct {
 	models.BaseModel
 	Name        string `json:"name,omitempty" gorm:"size:200;not null;"`
 	Image       string `json:"image,omitempty" gorm:"size:500;comment:图片地址"`
-	RedirectUrl string `json:"redirectUrl" gorm:"size:200"`
+	RedirectUrl string `json:"redirectUrl,omitempty" gorm:"size:200"`
 	// Letter byte   `json:"letter,omitempty" gorm:"not null;comment:品牌首字母"`
 	Spus []*spu.SPU `json:"spus"`
 }

@@ -6,6 +6,7 @@ import (
 	"mall/app/http/controllers/api/v1/home"
 	"mall/app/http/controllers/api/v1/middlewares"
 	"mall/app/http/controllers/api/v1/spu"
+	"mall/app/http/controllers/api/v1/user"
 
 	"github.com/gin-gonic/gin"
 )
@@ -58,5 +59,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
 	{
 		sc := new(spu.SpuController)
 		v1.GET("/products/:id", sc.GetSpuById)
+	}
+
+	// 用户接口
+	{
+		uc := new(user.UsersController)
+
+		// 获取当前用户
+		v1.GET("/user", middlewares.AuthJWT(), uc.CurrentUser)
 	}
 }

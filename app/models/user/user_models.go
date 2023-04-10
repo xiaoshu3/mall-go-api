@@ -16,9 +16,9 @@ type User struct {
 	Phone    string `json:"-"`
 	Password string `json:"-"`
 
-	Carts   []*cart.Cart       `json:"carts"`
-	Address []*address.Address `json:"address"`
-	Orders  []*order.Order     `json:"orders"`
+	Carts   []*cart.Cart       `json:"carts,omitempty"`
+	Address []*address.Address `json:"address,omitempty"`
+	Orders  []*order.Order     `json:"orders,omitempty"`
 
 	models.CommonTimestampsField
 }
