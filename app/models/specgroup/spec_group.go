@@ -30,15 +30,26 @@ type Brand struct {
 // 品类下细分
 type SpecCategory struct {
 	models.BaseModel
-	Name        string     `json:"name,omitempty" gorm:"size:200;not null;"`
-	Image       string     `json:"image,omitempty" gorm:"size:500;comment:图片地址"`
-	Sort        uint       `json:"sort" gorm:"not null;default:100;comment:排名指数"`
-	RedirectUrl string     `json:"redirectUrl" gorm:"size:200"`
-	SpecGroupId uint       `json:"spg_id"`
-	Spus        []*spu.SPU `json:"spus"`
+	Name        string `json:"name,omitempty" gorm:"size:200;not null;"`
+	Image       string `json:"image,omitempty" gorm:"size:500;comment:图片地址"`
+	Sort        uint   `json:"sort,omitempty" gorm:"not null;default:100;comment:排名指数"`
+	RedirectUrl string `json:"redirectUrl,omitempty" gorm:"size:200"`
+	SpecGroupId uint   `json:"spg_id,omitempty"`
+	Spus        []*spu.SPU `json:"spus,omitempty"`
 }
 
 func All() (categorys []SpecGroup) {
 	database.DB.Model(&SpecGroup{}).Preload("Categorys").Preload("Brands").Order("sort").Find(&categorys)
+	return
+}
+
+func GetIdsBySpecGroupId(specGroupId string) (ids []int) {
+	var specCategorys []SpecCategory
+	database.DB.Model(&SpecCategory{}).Select("id").
+		Where("spec_group_id = ?", specGroupId).Find(&specCategorys)
+
+	for _, item := range specCategorys {
+		ids = append(ids, int(item.ID))
+	}
 	return
 }

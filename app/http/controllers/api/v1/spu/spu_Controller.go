@@ -5,8 +5,10 @@ import (
 
 	// "log"
 	v1 "mall/app/http/controllers/api/v1"
+	"mall/app/requests"
 	"mall/pkg/response"
 
+	"mall/app/models/cycle"
 	"mall/app/models/spu"
 
 	"github.com/gin-gonic/gin"
@@ -30,5 +32,17 @@ func (sc *SpuController) GetSpuById(c *gin.Context) {
 		response.Abort404(c)
 		// response.Data(c, data.ID)
 	}
+}
 
+func (sc *SpuController) GetSpus(c *gin.Context) {
+	request := requests.PaginationRequest{}
+	if ok := requests.Validate(c, &request, requests.Pagination); !ok {
+		return
+	}
+
+	data, pager := cycle.Paginate(c, 8)
+	response.JSON(c, gin.H{
+		"data":  data,
+		"pager": pager,
+	})
 }

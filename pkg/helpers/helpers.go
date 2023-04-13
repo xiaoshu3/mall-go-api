@@ -80,3 +80,4 @@ func RandomNumber(length int) string {
 	}
 	return string(b)
 }
+
