@@ -2,6 +2,7 @@ package routes
 
 import (
 	"mall/app/http/controllers/api/v1/auth"
+	"mall/app/http/controllers/api/v1/cart"
 	"mall/app/http/controllers/api/v1/category"
 	"mall/app/http/controllers/api/v1/home"
 	"mall/app/http/controllers/api/v1/middlewares"
@@ -70,12 +71,23 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		// 获取当前用户
 		v1.GET("/user", middlewares.AuthJWT(), uc.CurrentUser)
 
-		
 		usersGroup := v1.Group("/users")
 		{
-			usersGroup.GET("", uc.Index)
+			usersGroup.GET("", middlewares.AuthJWT(), uc.Index)
 		}
 
+	}
+
+	// 购物车相关接口
+	{
+		cc := new(cart.CartController)
+		v1.POST("/shop-cart", middlewares.AuthJWT(), cc.AddGoodsToCart)
+
+		v1.GET("/shop-cart", middlewares.AuthJWT(), cc.GetCartList)
+		v1.GET("/shop-carts", middlewares.AuthJWT(), cc.GetCartListByPreload)
+
+		v1.DELETE("/shop-cart", middlewares.AuthJWT(), cc.DeleteCartItem)
+		v1.PUT("/shop-cart", middlewares.AuthJWT(), cc.EditCartItem)
 	}
 
 }

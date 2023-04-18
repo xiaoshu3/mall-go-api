@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"mall/pkg/logger"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -44,7 +43,7 @@ func Cors() gin.HandlerFunc {
 		method := context.Request.Method
 		origin := context.Request.Header.Get("Origin") //请求头部
 
-		logger.DebugString("Cros", "Origin", origin)
+		// logger.DebugString("Cros", "Origin", origin)
 		context.Header("Access-Control-Allow-Origin", origin)
 		// context.Header("Access-Control-Allow-Origin", "http://localhost:4000")
 		context.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Requested-With")

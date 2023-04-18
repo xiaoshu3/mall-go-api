@@ -22,3 +22,9 @@ func GetHtml(idstr string) (spuModel SPU) {
 	// spuModel.GoodsDetailContent.UnmarshalJSON()
 	return
 }
+
+func IsExistById(id uint64) bool {
+	var count int64
+	database.DB.Model(SPU{}).Where("id = ?", id).Where("saleable = ? ", 1).Where("valid = ? ", 1).Count(&count)
+	return count > 0
+}
