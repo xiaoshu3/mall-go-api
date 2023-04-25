@@ -117,6 +117,11 @@ func (cc *CartController) DeleteCartItem(c *gin.Context) {
 		BaseModel: models.BaseModel{ID: request.CartItem},
 	}
 
+	// 查找记录是否存在
+	if ok := cart.IsExist("id", cast.ToString(request.CartItem)); !ok {
+		response.Abort404(c)
+		return
+	}
 	if err := cartModel.Delete(); err != nil {
 		response.Error(c, err)
 	} else {
