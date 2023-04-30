@@ -33,6 +33,8 @@ func (ac *AddressController) AddAddress(c *gin.Context) {
 	// 2. 验证成功，创建数据
 	address := address.Address{
 		UserID:        id,
+		Name:          request.Name,
+		Phone:         request.Phone,
 		ProvinceName:  request.ProvinceName,
 		CityName:      request.CityName,
 		RegionName:    request.RegionName,
@@ -96,6 +98,8 @@ func (ac *AddressController) EditAddress(c *gin.Context) {
 	address := address.Address{
 		BaseModel:     models.BaseModel{ID: request.ID},
 		UserID:        id,
+		Name:          request.Name,
+		Phone:         request.Phone,
 		ProvinceName:  request.ProvinceName,
 		CityName:      request.CityName,
 		RegionName:    request.RegionName,
