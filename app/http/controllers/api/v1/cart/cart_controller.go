@@ -8,6 +8,7 @@ import (
 	"mall/app/models/spu"
 	"mall/app/requests"
 	"mall/pkg/response"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
@@ -147,4 +148,33 @@ func (cc *CartController) EditCartItem(c *gin.Context) {
 	cart.UpdateGoodsCount(request.CartId, request.GoodsCount)
 
 	response.Success(c)
+}
+
+type GetCartListByIdsRequest struct {
+	CartItemIds string `json:"cartItemIds" binding:"required"`
+}
+
+func (cc *CartController) GetCartListByIds(c *gin.Context) {
+	// 1. 验证表单
+
+	request := GetCartListByIdsRequest{}
+	if err := c.ShouldBind(&request); err != nil {
+		response.Error(c, err)
+		return
+	}
+	ids := strings.Split(request.CartItemIds, ",")
+
+	// err := c.ShouldBindQuery(&request)
+	// if err != nil {
+	// 	response.Error(c, err)
+	// 	return
+	// }
+
+	// ids := strings.Split(request.CartItemIds, ",")
+	// logger.Dump(ids, "IDS===")
+	// logger.Dump(idsParam, "IDSParm")
+
+	var cartList []cart.Cart
+	cart.GetCartListByIds(ids, &cartList)
+	response.Data(c, cartList)
 }

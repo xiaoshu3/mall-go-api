@@ -19,3 +19,8 @@ func GetCartListByPreload(userId string, cartList interface{}) {
 	database.DB.Model(&Cart{}).Preload("Spus", "saleable = ? and valid = ?", 1, 1).Where("user_id = ? ", userId).
 		Order("created_at desc").Find(cartList)
 }
+
+func GetCartListByIds(ids []string, cartList interface{}) {
+	database.DB.Model(&Cart{}).Preload("Spus", "saleable = ? and valid = ?", 1, 1).
+		Where("id in ?", ids).Order("created_at desc").Find(cartList)
+}

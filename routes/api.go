@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"mall/app/http/controllers/api/v1/address"
 	"mall/app/http/controllers/api/v1/auth"
 	"mall/app/http/controllers/api/v1/cart"
 	"mall/app/http/controllers/api/v1/category"
@@ -88,6 +89,25 @@ func RegisterAPIRoutes(r *gin.Engine) {
 
 		v1.DELETE("/shop-cart", middlewares.AuthJWT(), cc.DeleteCartItem)
 		v1.PUT("/shop-cart", middlewares.AuthJWT(), cc.EditCartItem)
+
+		v1.GET("/shop-cart/settle", middlewares.AuthJWT(), cc.GetCartListByIds)
+	}
+
+	//地址相关接口
+	{
+		ac := new(address.AddressController)
+
+		v1.GET("/address", middlewares.AuthJWT(), ac.GetAddressList)
+
+		v1.POST("/address", middlewares.AuthJWT(), ac.AddAddress)
+
+		v1.PUT("/address", middlewares.AuthJWT(), ac.EditAddress)
+
+		v1.DELETE("/address/:id", middlewares.AuthJWT(), ac.DeleteAddress)
+
+		v1.GET("/address/default", middlewares.AuthJWT(), ac.GetDefaultAddress)
+
+		v1.GET("/address/:id", middlewares.AuthJWT(), ac.GetAddressByID)
 	}
 
 }
